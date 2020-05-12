@@ -17,9 +17,14 @@
   ],
   "samples": [
       {
-          "displayName": "Examples",
-          "description": "A set of examples to see how the package works",
-          "path": "Examples"
+          "displayName": "Q Learning Maze Example",
+          "description": "A agent learns to walk through the maze",
+          "path": "Samples~/Q Learning"
+      },
+      {
+          "displayName": "XOR Neural Network Example",
+          "description": "A neural network solves the XOR problem",
+          "path": "Samples~/XOR Network"
       }
   ]
 }
