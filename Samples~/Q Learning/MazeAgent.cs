@@ -1,4 +1,4 @@
-﻿using NeuralNetwork.Models;
+﻿using CGAI.QLearning;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
