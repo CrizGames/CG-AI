@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 
-namespace NeuralNetwork
+namespace CGAI.NeuralNetwork
 {
     /// <summary>
     /// The base class for all neural networks

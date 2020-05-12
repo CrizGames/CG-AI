@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "description": "Criz Games' AI Library for Unity",
   "author": "Criz Games",
-  "unity": "2019.3",
+  "unity": "2017.1",
   "dependencies": {
     "com.malee.reorderablelist": "1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301"
@@ -26,6 +26,5 @@
       "description": "A neural network solves the XOR problem",
       "path": "Samples~/XOR Network"
     }
-  ],
-  "type": "library"
+  ]
 }

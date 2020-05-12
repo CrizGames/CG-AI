@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NeuralNetwork
+namespace CGAI.NeuralNetwork
 {
     /// <summary>
     /// This class includes all activation functions

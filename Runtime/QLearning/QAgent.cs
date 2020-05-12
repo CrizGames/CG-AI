@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System;
-using UnityEditorInternal;
 
-namespace NeuralNetwork.Models
+namespace CGAI.QLearning
 {
     public abstract class QAgent : MonoBehaviour
     {

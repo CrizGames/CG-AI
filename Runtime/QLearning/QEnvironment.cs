@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NeuralNetwork.Models
+namespace CGAI.QLearning
 {
     public abstract class QEnvironment : MonoBehaviour
     {

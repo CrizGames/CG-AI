@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NeuralNetwork
+namespace CGAI.NeuralNetwork
 {
     /// <summary>
     /// Base layer
@@ -79,7 +79,7 @@ namespace NeuralNetwork
                 // Create a dense vector with random values
                 Activations = new float[neurons];
 
-                ActivationFunc = NeuralNetwork.Activations.LeakyReLU;
+                ActivationFunc = CGAI.NeuralNetwork.Activations.LeakyReLU;
             }
             /// <summary>
             /// Here specify how many neurons there should be in this layer and which activation function it should use.
@@ -111,7 +111,7 @@ namespace NeuralNetwork
             /// Specify here how many neurons there should be in this layer. The activation function is Leaky ReLU by default.
             /// If it is the first layer, simply put an empty layer as last layer
             /// </summary>
-            public Dense(int neurons, Layer lastLayer) : this(neurons, lastLayer, NeuralNetwork.Activations.LeakyReLU) { }
+            public Dense(int neurons, Layer lastLayer) : this(neurons, lastLayer, CGAI.NeuralNetwork.Activations.LeakyReLU) { }
 
             /// <summary>
             /// Initialize layer with these variables
@@ -134,7 +134,7 @@ namespace NeuralNetwork
                 {
                     Weights = null;
                     Biases = null;
-                    ActivationFunc = NeuralNetwork.Activations.Identity;
+                    ActivationFunc = CGAI.NeuralNetwork.Activations.Identity;
                 }
                 else
                 {

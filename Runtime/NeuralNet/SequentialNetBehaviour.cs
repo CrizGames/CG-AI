@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NeuralNetwork;
 using Malee;
 
-namespace NeuralNetwork.Models
+namespace CGAI.NeuralNetwork
 {
     public class SequentialNetBehaviour : MonoBehaviour
     {

@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NeuralNetwork;
 
-namespace NeuralNetwork.Models
+namespace CGAI.NeuralNetwork
 {
     public class SimpleClassifier : SequentialNet
     {
