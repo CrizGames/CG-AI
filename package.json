@@ -1,0 +1,25 @@
+{
+  "name": "com.crizgames.cgai",
+  "displayName": "CG AI",
+  "version": "0.2.0",
+  "description": "Criz Games' AI Library for Unity",
+  "author": "Criz Games",
+  "unity": "2019.3",
+  "dependencies": {
+    "com.malee.reorderablelist": "1.0.0",
+	"jillejr.newtonsoft.json-for-unity": "12.0.301"
+ },
+ "keywords": [
+    "AI",
+	"Machine Learning",
+    "Neural Networks",
+    "Q Learning"
+  ],
+  "samples": [
+      {
+          "displayName": "Examples",
+          "description": "A set of examples to see how the package works",
+          "path": "Examples"
+      }
+  ]
+}
