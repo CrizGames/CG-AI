@@ -1,7 +1,7 @@
 {
   "name": "com.crizgames.cgai",
   "displayName": "CG AI",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Criz Games' AI Library for Unity",
   "author": "Criz Games",
   "unity": "2017.1",
