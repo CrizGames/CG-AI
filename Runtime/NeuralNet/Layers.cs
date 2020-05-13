@@ -11,6 +11,15 @@ namespace CGAI.NeuralNetwork
     [Serializable]
     public abstract class Layer
     {
+        public struct JsonData
+        {
+            public Type layerType;
+            public float[] activations;
+            public float[][] weights;
+            public float[] biases;
+            public string activationFunc;
+        }
+
         /// <summary>
         /// A vector of all activations in this layer.
         /// </summary>
@@ -39,17 +48,17 @@ namespace CGAI.NeuralNetwork
         /// <summary>
         /// The layer behind this layer
         /// </summary>
-        public Layer LastLayer { get; private protected set; }
+        public Layer LastLayer;
 
         /// <summary>
         /// Each element is one dimension with Length combined.
         /// </summary>
-        public int[] InputShape { get; private protected set; }
+        public int[] InputShape;
 
         /// <summary>
         /// Determines if it is the first layer based on if "LastLayer" is null.
         /// </summary>
-        public bool IsInputLayer { get; private protected set; }
+        public bool IsInputLayer;
 
         /// <summary>
         /// Initialize layer
@@ -57,6 +66,34 @@ namespace CGAI.NeuralNetwork
         public abstract void Init(int neurons, Layer lastLayer, Func<float[], bool, float[]> activationFunc, bool onlyPositiveWeights, float initWeightsRange);
 
         public abstract void Process();
+
+        public virtual JsonData ToJsonData()
+        {
+            return new JsonData
+            {
+                layerType = GetType(),
+                activations = Activations,
+                biases = Biases,
+                weights = Weights,
+                activationFunc = ActivationFunc.Method.Name
+            };
+        }
+
+        public static Layer LoadLayer(JsonData data)
+        {
+            Type t = data.layerType;
+            if (t == typeof(Layers.Dense))
+            {
+                return new Layers.Dense
+                {
+                    Activations = data.activations,
+                    Biases = data.biases,
+                    Weights = data.weights,
+                    ActivationFunc = NeuralNetwork.Activations.Type2Func(data.activationFunc),
+                };
+            }
+            return null;
+        }
     }
 
     /// <summary>
@@ -194,6 +231,7 @@ namespace CGAI.NeuralNetwork
 
                 Activations = ActivationFunc(neuronSums, false);
             }
+
         }
     }
 }

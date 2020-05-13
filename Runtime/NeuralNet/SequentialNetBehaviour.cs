@@ -10,55 +10,43 @@ namespace CGAI.NeuralNetwork
         [System.Serializable]
         private struct DenseLayer
         {
-            public enum ActivationFunction
-            {
-                Identity,
-                BinaryStep,
-                ReLU,
-                LeakyReLU,
-                Swish,
-                Sigmoid,
-                Tanh,
-                Softmax
-            }
-
             public int neurons;
-            public ActivationFunction func;
+            public ActivationType func;
 
             public Layer ToLayer()
             {
                 System.Func<float[], bool, float[]> activationFunc = null;
                 switch (func)
                 {
-                    case ActivationFunction.Identity:
+                    case ActivationType.Identity:
                         activationFunc = Activations.Identity;
                         break;
 
-                    case ActivationFunction.BinaryStep:
+                    case ActivationType.BinaryStep:
                         activationFunc = Activations.BinaryStep;
                         break;
 
-                    case ActivationFunction.ReLU:
+                    case ActivationType.ReLU:
                         activationFunc = Activations.ReLU;
                         break;
 
-                    case ActivationFunction.LeakyReLU:
+                    case ActivationType.LeakyReLU:
                         activationFunc = Activations.LeakyReLU;
                         break;
 
-                    case ActivationFunction.Swish:
+                    case ActivationType.Swish:
                         activationFunc = Activations.Swish;
                         break;
 
-                    case ActivationFunction.Sigmoid:
+                    case ActivationType.Sigmoid:
                         activationFunc = Activations.Sigmoid;
                         break;
 
-                    case ActivationFunction.Tanh:
+                    case ActivationType.Tanh:
                         activationFunc = Activations.Tanh;
                         break;
 
-                    case ActivationFunction.Softmax:
+                    case ActivationType.Softmax:
                         activationFunc = Activations.Softmax;
                         break;
                 }
@@ -92,10 +80,10 @@ namespace CGAI.NeuralNetwork
         {
             if (layers.Count < 2)
                 for (int i = 0; i <= 2 - layers.Count; i++)
-                    layers.Add(new DenseLayer { neurons = 1, func = DenseLayer.ActivationFunction.LeakyReLU });
+                    layers.Add(new DenseLayer { neurons = 1, func = ActivationType.LeakyReLU });
 
-            if (layers[0].func != DenseLayer.ActivationFunction.Identity)
-                layers[0] = new DenseLayer { neurons = layers[0].neurons, func = DenseLayer.ActivationFunction.Identity };
+            if (layers[0].func != ActivationType.Identity)
+                layers[0] = new DenseLayer { neurons = layers[0].neurons, func = ActivationType.Identity };
         }
     }
 }

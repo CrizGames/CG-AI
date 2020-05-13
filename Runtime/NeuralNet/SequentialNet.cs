@@ -17,8 +17,6 @@ namespace CGAI.NeuralNetwork
     {
         #region Fields
 
-        private static JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-
         /// <summary>
         /// The layers of this neural network
         /// </summary>
@@ -119,7 +117,11 @@ namespace CGAI.NeuralNetwork
         /// </summary>
         public void Save(string path)
         {
-            string json = JsonConvert.SerializeObject(Layers, Formatting.Indented, settings);
+            Layer.JsonData[] data = new Layer.JsonData[Layers.Length];
+            for (int i = 0; i < data.Length; i++)
+                data[i] = Layers[i].ToJsonData();
+
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             File.WriteAllText(path, json);
         }
@@ -129,12 +131,7 @@ namespace CGAI.NeuralNetwork
         /// </summary>
         public async Task SaveAsync(string path)
         {
-            await Task.Run(() =>
-            {
-                string json = JsonConvert.SerializeObject(Layers, Formatting.Indented, settings);
-
-                File.WriteAllText(path, json);
-            });
+            await Task.Run(() => Save(path));
         }
 
         /// <summary>
@@ -145,7 +142,15 @@ namespace CGAI.NeuralNetwork
             if (!File.Exists(path))
                 return false;
 
-            Layers = JsonConvert.DeserializeObject<Layer[]>(File.ReadAllText(path), settings);
+            Layer.JsonData[] data = JsonConvert.DeserializeObject<Layer.JsonData[]>(File.ReadAllText(path));
+            Layers = new Layer[data.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                Layers[i] = Layer.LoadLayer(data[i]);
+                Layers[i].IsInputLayer = i == 0;
+                Layers[i].LastLayer = i > 0 ? Layers[i - 1] : null;
+            }
+
             return true;
         }
 
@@ -154,14 +159,7 @@ namespace CGAI.NeuralNetwork
         /// </summary>
         public async Task<bool> LoadAsync(string path)
         {
-            return await Task.Run(() =>
-            {
-                if (!File.Exists(path))
-                    return false;
-
-                Layers = JsonConvert.DeserializeObject<Layer[]>(File.ReadAllText(path), settings);
-                return true;
-            });
+            return await Task.Run(() => Load(path));
         }
 
         /// <summary>
@@ -218,7 +216,6 @@ namespace CGAI.NeuralNetwork
         /// <summary>
         /// Returns the output
         /// </summary>
-        /// <returns></returns>
         protected virtual float[] GetOutput()
         {
             return Layers.Last().Activations;

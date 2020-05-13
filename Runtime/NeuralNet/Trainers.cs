@@ -146,7 +146,7 @@ namespace CGAI.NeuralNetwork
                     {
                         float neuronErrorSum = 0;
                         for (int e = startIdx; e < startIdx + batchSize; e++)
-                            neuronErrorSum += errors[e][n]; // TODO: Error here
+                            neuronErrorSum += errors[e][n]; // TODO: Error occurs here
                         averageErrors[n] = neuronErrorSum / errors.Count;
                     }
 

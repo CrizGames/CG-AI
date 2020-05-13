@@ -5,11 +5,99 @@ using UnityEngine;
 
 namespace CGAI.NeuralNetwork
 {
+    public enum ActivationType
+    {
+        Identity,
+        BinaryStep,
+        ReLU,
+        LeakyReLU,
+        Swish,
+        Sigmoid,
+        Tanh,
+        Softmax
+    }
+
     /// <summary>
     /// This class includes all activation functions
     /// </summary>
     public struct Activations
     {
+        public static Func<float[], bool, float[]> Type2Func(string funcName)
+        {
+            return Type2Func(Func2Type(funcName));
+        }
+
+        public static Func<float[], bool, float[]> Type2Func(ActivationType type)
+        {
+            switch (type)
+            {
+                case ActivationType.Identity:
+                    return Identity;
+
+                case ActivationType.BinaryStep:
+                    return BinaryStep;
+
+                case ActivationType.ReLU:
+                    return ReLU;
+
+                case ActivationType.LeakyReLU:
+                    return LeakyReLU;
+
+                case ActivationType.Swish:
+                    return Swish;
+
+                case ActivationType.Sigmoid:
+                    return Sigmoid;
+
+                case ActivationType.Tanh:
+                    return Tanh;
+
+                case ActivationType.Softmax:
+                    return Softmax;
+
+                default:
+                    return Identity;
+            }
+        }
+
+        public static ActivationType Func2Type(Func<float[], bool, float[]> func)
+        {
+            return Func2Type(func.Method.Name);
+        }
+
+        public static ActivationType Func2Type(string funcName)
+        {
+            switch (funcName)
+            {
+                case "Identity":
+                    return ActivationType.Identity;
+
+                case "BinaryStep":
+                    return ActivationType.BinaryStep;
+
+                case "ReLU":
+                    return ActivationType.ReLU;
+
+                case "LeakyReLU":
+                    return ActivationType.LeakyReLU;
+
+                case "Swish":
+                    return ActivationType.Swish;
+
+                case "Sigmoid":
+                    return ActivationType.Sigmoid;
+
+                case "Tanh":
+                    return ActivationType.Tanh;
+
+                case "Softmax":
+                    return ActivationType.Softmax;
+
+                default:
+                    return ActivationType.Identity;
+            }
+        }
+
         /// <summary>
         /// The identity activation function does nothing. It simply return the input.
         /// </summary>
