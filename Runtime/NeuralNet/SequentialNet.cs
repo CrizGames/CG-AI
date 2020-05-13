@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using Newtonsoft.Json;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CGAI.NeuralNetwork
 {
@@ -14,6 +16,8 @@ namespace CGAI.NeuralNetwork
     public class SequentialNet
     {
         #region Fields
+
+        private static JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
         /// <summary>
         /// The layers of this neural network
@@ -26,7 +30,7 @@ namespace CGAI.NeuralNetwork
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Create a neural network
         /// </summary>
         public SequentialNet(params Layer[] layers)
         {
@@ -108,6 +112,56 @@ namespace CGAI.NeuralNetwork
         public virtual bool CorrectInputLength(int inputLength)
         {
             return Layers[0].Activations.Length == inputLength;
+        }
+
+        /// <summary>
+        /// Save model to path
+        /// </summary>
+        public void Save(string path)
+        {
+            string json = JsonConvert.SerializeObject(Layers, Formatting.Indented, settings);
+
+            File.WriteAllText(path, json);
+        }
+
+        /// <summary>
+        /// Save model to path
+        /// </summary>
+        public async Task SaveAsync(string path)
+        {
+            await Task.Run(() =>
+            {
+                string json = JsonConvert.SerializeObject(Layers, Formatting.Indented, settings);
+
+                File.WriteAllText(path, json);
+            });
+        }
+
+        /// <summary>
+        /// Load model from path
+        /// </summary>
+        public bool Load(string path)
+        {
+            if (!File.Exists(path))
+                return false;
+
+            Layers = JsonConvert.DeserializeObject<Layer[]>(File.ReadAllText(path), settings);
+            return true;
+        }
+
+        /// <summary>
+        /// Load model from path
+        /// </summary>
+        public async Task<bool> LoadAsync(string path)
+        {
+            return await Task.Run(() =>
+            {
+                if (!File.Exists(path))
+                    return false;
+
+                Layers = JsonConvert.DeserializeObject<Layer[]>(File.ReadAllText(path), settings);
+                return true;
+            });
         }
 
         /// <summary>

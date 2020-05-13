@@ -70,6 +70,8 @@ namespace CGAI.NeuralNetwork
         [Serializable]
         public class Dense : Layer
         {
+            public Dense() { }
+
             /// <summary>
             /// Here specify how many neurons there should be in this layer. The default activation function is Leaky ReLU.
             /// If it is the first layer, simply put an empty layer as last layer.
@@ -81,6 +83,7 @@ namespace CGAI.NeuralNetwork
 
                 ActivationFunc = CGAI.NeuralNetwork.Activations.LeakyReLU;
             }
+
             /// <summary>
             /// Here specify how many neurons there should be in this layer and which activation function it should use.
             /// If it is the first layer, simply put an empty layer as last layer.

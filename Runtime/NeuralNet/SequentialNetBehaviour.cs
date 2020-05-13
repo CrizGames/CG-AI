@@ -73,7 +73,7 @@ namespace CGAI.NeuralNetwork
         // Variables
 
         [SerializeField, Reorderable]
-        private DenseLayerArray layers;
+        private DenseLayerArray layers = new DenseLayerArray();
 
 
         // Methods
