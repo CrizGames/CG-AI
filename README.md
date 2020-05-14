@@ -10,9 +10,7 @@ In the Unity package manager, click on the plus sign > Add package from Git URL.
 
 ![screenshot](https://user-images.githubusercontent.com/38948134/81692046-1b0e9a80-945e-11ea-956f-607265b609df.png)  
 
-## Small Guide
-
-### Neural Networks
+## Neural Networks
 When you want to make a simple neural network, then using `SequentialNet` is the right way to go.
 ```c#
 SequentialNet net = new SequentialNet(
@@ -24,7 +22,7 @@ net.Init();
 ```
 As you can see, the library has a number of activation functions.
 
-#### Custom Layer
+### Custom Layer
 Currently, there is only the "Dense" layer, but you can add your own layer easily. Just inherit the "Layer" class.
 ```c#
 public class NewLayer : Layer
@@ -41,7 +39,7 @@ public class NewLayer : Layer
 }
 ```
 
-#### Custom Activation function
+### Custom Activation function
 Activation functions can also be added easily. Just create a function with `float[]` and `bool` as parameters and `float[]` as return type.
 ```c#
 public static float[] NewActivationFunction(float[] layer, bool derivative = false)
