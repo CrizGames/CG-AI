@@ -22,6 +22,11 @@ namespace CGAI.NeuralNetwork
         /// </summary>
         public Layer[] Layers;
 
+        /// <summary>
+        /// Returns the length of last layer
+        /// </summary>
+        public int OutputSize { get { return Layers.Last().Activations.Length; } }
+
         #endregion
 
 
@@ -80,14 +85,6 @@ namespace CGAI.NeuralNetwork
 
             // Return the output
             return GetOutput();
-        }
-
-        /// <summary>
-        /// Returns the length of last layer
-        /// </summary>
-        public virtual int GetOutputLength()
-        {
-            return Layers.Last().Activations.Length;
         }
 
         /// <summary>
