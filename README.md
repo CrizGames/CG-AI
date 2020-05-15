@@ -25,7 +25,7 @@ As you can see, the library has a number of activation functions.
 ### Custom Layer
 Currently, there is only the "Dense" layer, but you can add your own layer easily. Just inherit the "Layer" class.
 ```c#
-public class NewLayer : Layer
+public class CustomLayer : Layer
 {
     public override void Init(int neurons, Layer previousLayer, Func<float[], bool, float[]> activationFunc, bool onlyPositiveWeights, float initWeightsRange)
     {
@@ -42,7 +42,7 @@ public class NewLayer : Layer
 ### Custom Activation function
 Activation functions can also be added easily. Just create a function with `float[]` and `bool` as parameters and `float[]` as return type.
 ```c#
-public static float[] NewActivationFunction(float[] layer, bool derivative = false)
+public static float[] CustomActivationFunction(float[] layer, bool derivative = false)
 {
     if (derivative)
     {
