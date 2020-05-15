@@ -34,7 +34,7 @@ public class CustomLayer : Layer
 
     public override void Process()
     {
-        // Feed forward of layer
+        // Feed forward
     }
 }
 ```
