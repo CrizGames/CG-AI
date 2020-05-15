@@ -1,5 +1,5 @@
 # CG-AI
-Criz Games' AI Library for Unity.
+This is Criz Games' Artificial Intelligence Library for Unity.
  
 It is not meant to be used by other people, but if you want to use it, feel free to do so!
 Also, it is not the fastest library, but fast enough for my purposes.
