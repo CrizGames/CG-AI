@@ -4,7 +4,6 @@ using UnityEngine;
 using CGAI.NeuralNetwork;
 using System.Linq;
 using System;
-using System.Diagnostics.Eventing.Reader;
 
 namespace CGAI.QLearning
 {
