@@ -5,24 +5,24 @@ using UnityEngine;
 
 namespace CGAI.QLearning
 {
-    public abstract class QEnvironment<T> : MonoBehaviour
+    public abstract class DeepQEnvironment : MonoBehaviour
     {
         public int StatesCount;
 
         /// <summary>
         /// Returns new state, reward and if goal reached 
         /// </summary>
-        public virtual Tuple<float, bool> Step(T state, T newState)
+        public virtual Tuple<float, bool> Step(int state, int newState)
         {
             return new Tuple<float, bool>(RewardAgent(state, newState), AchievedGoal(state, newState));
         }
 
-        public abstract float RewardAgent(T state, T newState);
+        public abstract float RewardAgent(int state, int newState);
 
-        public abstract bool AchievedGoal(T state, T newState);
+        public abstract bool AchievedGoal(int state, int newState);
 
-        public abstract bool Failed(T state, T newState);
+        public abstract bool Failed(int state, int newState);
 
-        public abstract T Reset();
+        public abstract int Reset();
     }
 }

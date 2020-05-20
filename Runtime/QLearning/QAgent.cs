@@ -6,11 +6,9 @@ using System;
 
 namespace CGAI.QLearning
 {
-    public abstract class QAgent : MonoBehaviour
+    public abstract class QAgent<T> : MonoBehaviour where T : QEnvironment<int>
     {
-        System.Random rnd = new System.Random();
-
-        public QEnvironment env;
+        public T env;
 
         public float[][] QTable;
 
@@ -29,7 +27,7 @@ namespace CGAI.QLearning
 
         private int currentState;
 
-        private void Start()
+        private void Awake()
         {
             if (env == null)
                 throw new Exception("Environment is null!");
@@ -42,8 +40,6 @@ namespace CGAI.QLearning
                 QTable[i] = new float[ActionsSize];
 
             explorationRate = MaxExplorationRate;
-
-            StartCoroutine(Train());
         }
 
         public void RunOnce()
@@ -76,11 +72,11 @@ namespace CGAI.QLearning
                 {
                     int action;
                     // Exploit
-                    if (rnd.NextDouble() > explorationRate)
+                    if (UnityEngine.Random.value > explorationRate)
                         action = GetBestActionIdx(state);
                     // Explore
                     else
-                        action = rnd.Next(0, ActionsSize);
+                        action = UnityEngine.Random.Range(0, ActionsSize);
 
                     // Step
                     int newState = DoAction(state, action);
@@ -115,7 +111,7 @@ namespace CGAI.QLearning
 
                 if (episode % 1000 == 0)
                 {
-                    Debug.Log($"Episode {episode} Exloration rate: {explorationRate} Wins/Fails: {(fails > 0 ? Math.Round((float)wins / fails, 2) : 0)}");
+                    Debug.Log($"Episode {episode} Exploration rate: {explorationRate} Wins/Fails: {(fails > 0 ? Math.Round((float)wins / fails, 2) : 0)}");
                     wins = fails = 0;
                 }
                 if (MaxStepsPerEpisode < 5000)
@@ -148,7 +144,7 @@ namespace CGAI.QLearning
 
         protected virtual int GetBestActionIdx(int state)
         {
-            return QTable[state].ToList().IndexOf(Mathf.Max(QTable[state]));
+            return Array.IndexOf(QTable[state], Mathf.Max(QTable[state]));
         }
 
         public virtual void PrintQTable()

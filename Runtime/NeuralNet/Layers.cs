@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CGAI.NeuralNetwork
@@ -66,6 +67,8 @@ namespace CGAI.NeuralNetwork
         public abstract void Init(int neurons, Layer lastLayer, Func<float[], bool, float[]> activationFunc, bool onlyPositiveWeights, float initWeightsRange);
 
         public abstract void Process();
+
+        public abstract Layer Copy();
 
         public virtual JsonData ToJsonData()
         {
@@ -232,6 +235,19 @@ namespace CGAI.NeuralNetwork
                 Activations = ActivationFunc(neuronSums, false);
             }
 
+            public override Layer Copy()
+            {
+                Dense l = new Dense();
+                l.Activations = Activations.ToArray();
+                if (!IsInputLayer)
+                {
+                    l.Weights = Weights.ToArray();
+                    l.Biases = Biases.ToArray();
+                }
+                l.ActivationFunc = ActivationFunc;
+                l.IsInputLayer = IsInputLayer;
+                return l;
+            }
         }
     }
 }

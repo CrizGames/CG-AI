@@ -8,7 +8,7 @@ namespace CGAI.NeuralNetwork
     public class SequentialNetBehaviour : MonoBehaviour
     {
         [System.Serializable]
-        private struct DenseLayer
+        private struct NetLayer
         {
             public int neurons;
             public ActivationType func;
@@ -55,7 +55,7 @@ namespace CGAI.NeuralNetwork
         }
 
         [System.Serializable]
-        private class DenseLayerArray : ReorderableArray<DenseLayer> { }
+        private class DenseLayerArray : ReorderableArray<NetLayer> { }
 
 
         // Variables
@@ -80,10 +80,10 @@ namespace CGAI.NeuralNetwork
         {
             if (layers.Count < 2)
                 for (int i = 0; i <= 2 - layers.Count; i++)
-                    layers.Add(new DenseLayer { neurons = 1, func = ActivationType.LeakyReLU });
+                    layers.Add(new NetLayer { neurons = 1, func = (layers.Count == 1 ? ActivationType.Sigmoid : ActivationType.LeakyReLU) });
 
             if (layers[0].func != ActivationType.Identity)
-                layers[0] = new DenseLayer { neurons = layers[0].neurons, func = ActivationType.Identity };
+                layers[0] = new NetLayer { neurons = layers[0].neurons, func = ActivationType.Identity };
         }
     }
 }

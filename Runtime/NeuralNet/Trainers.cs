@@ -35,22 +35,77 @@ namespace CGAI.NeuralNetwork
         /// <summary>
         /// Train the neural network in batches
         /// </summary>
-        public abstract void TrainBatches(float[][] inputs, float[][] expectedOutputs, int batchSize, int epochs);
+        public virtual void TrainBatches(float[][] inputs, float[][] expectedOutputs, int batchSize, int epochs)
+        {
+            for (int i = 0; i < epochs; i++)
+                TrainBatchesOnce(inputs, expectedOutputs, batchSize);
+        }
 
         /// <summary>
         /// Train the neural network in batches
         /// </summary>
-        public abstract float TrainBatchesOnce(float[][] inputs, float[][] expectedOutputs, int batchSize = 4);
+        public virtual float TrainBatchesOnce(float[][] inputs, float[][] expectedOutputs, int batchSize = 4)
+        {
+            if (batchSize < 2)
+                throw new Exception("Batch size must be at least 2.");
+
+            if (batchSize >= inputs.Length)
+                throw new Exception("Batch size is bigger than dataset length. Batch size must be at least equal the dataset length (Even though that's not the intended usage. It should be smaller.).");
+
+            int startIdx = 0;
+            int iterations = 0;
+            float avgError = 0;
+
+            // Get errors
+            List<float[]> errors = new List<float[]>();
+            for (int i = 0; i < inputs.Length; i++)
+                errors.Add(GetError(inputs[i], expectedOutputs[i]));
+
+            do
+            {
+                iterations++;
+
+                // Calculate average error
+                float[] averageErrors = new float[inputs[0].Length];
+                for (int n = 0; n < inputs[0].Length; n++)
+                {
+                    float neuronErrorSum = 0;
+                    for (int e = startIdx; e < startIdx + batchSize; e++)
+                        neuronErrorSum += errors[e][n]; // TODO: Error occurs here
+                    averageErrors[n] = neuronErrorSum / errors.Count;
+                }
+
+                avgError += TrainOnce(averageErrors);
+
+                startIdx += batchSize;
+                if (startIdx > inputs.Length)
+                    startIdx = inputs.Length - 1;
+            }
+            while (startIdx == inputs.Length - 1);
+
+            return avgError / iterations;
+        }
 
         /// <summary>
         /// Train the neural network once
         /// </summary>
-        public abstract void Train(float[][] input, float[][] expectedOutput, int epochs);
+        public virtual void Train(float[][] inputs, float[][] expectedOutputs, int epochs)
+        {
+            if (inputs.Length != expectedOutputs.Length)
+                throw new Exception("Inputs and Expected Outputs must be the same size");
+
+            for (int i = 0; i < epochs; i++)
+                for (int j = 0; j < inputs.Length; j++)
+                    TrainOnce(inputs[j], expectedOutputs[j]);
+        }
 
         /// <summary>
         /// Train the neural network once
         /// </summary>
-        public abstract float TrainOnce(float[] input, float[] expectedOutput);
+        public virtual float TrainOnce(float[] input, float[] expectedOutput)
+        {
+            return TrainOnce(GetError(input, expectedOutput));
+        }
 
         /// <summary>
         /// Train the neural network once
@@ -68,7 +123,7 @@ namespace CGAI.NeuralNetwork
             {
                 float[] e = ErrorFunc(output, expectedOutput, false);
 
-                bool simple = false;
+                bool simple = true;
                 if (simple)
                     Debug.Log($"Error: {Math.Round(e.Sum() / e.Length, 4)}");
                 else
@@ -106,81 +161,6 @@ namespace CGAI.NeuralNetwork
             public BackPropagation(SequentialNet nn, Func<float[], float[], bool, float[]> errorFunction, float learningRate, bool printError = true)
                 : base(nn, errorFunction, learningRate, printError) { }
 
-
-            /// <summary>
-            /// Train the neural network in batches
-            /// </summary>
-            public override void TrainBatches(float[][] inputs, float[][] expectedOutputs, int batchSize, int epochs)
-            {
-                for (int i = 0; i < epochs; i++)
-                    TrainBatchesOnce(inputs, expectedOutputs, batchSize);
-            }
-
-            /// <summary>
-            /// Train the neural network in batches
-            /// </summary>
-            public override float TrainBatchesOnce(float[][] inputs, float[][] expectedOutputs, int batchSize = 4)
-            {
-                if (batchSize < 2)
-                    throw new Exception("Batch size must be at least 2.");
-
-                if (batchSize >= inputs.Length)
-                    throw new Exception("Batch size is bigger than dataset length. Batch size must be at least equal the dataset length (Even though that's not the intended usage. It should be smaller.).");
-
-                int startIdx = 0;
-                int iterations = 0;
-                float avgError = 0;
-
-                // Get errors
-                List<float[]> errors = new List<float[]>();
-                for (int i = 0; i < inputs.Length; i++)
-                    errors.Add(GetError(inputs[i], expectedOutputs[i]));
-
-                do
-                {
-                    iterations++;
-
-                    // Calculate average error
-                    float[] averageErrors = new float[inputs[0].Length];
-                    for (int n = 0; n < inputs[0].Length; n++)
-                    {
-                        float neuronErrorSum = 0;
-                        for (int e = startIdx; e < startIdx + batchSize; e++)
-                            neuronErrorSum += errors[e][n]; // TODO: Error occurs here
-                        averageErrors[n] = neuronErrorSum / errors.Count;
-                    }
-
-                    avgError += TrainOnce(averageErrors);
-
-                    startIdx += batchSize;
-                    if (startIdx > inputs.Length)
-                        startIdx = inputs.Length - 1;
-                }
-                while (startIdx == inputs.Length - 1);
-
-                return avgError / iterations;
-            }
-
-            /// <summary>
-            /// Train the neural network once
-            /// </summary>
-            public override void Train(float[][] inputs, float[][] expectedOutputs, int epochs)
-            {
-                if (inputs.Length != expectedOutputs.Length)
-                    throw new Exception("Inputs and Expected Outputs must be the same size");
-
-                for (int i = 0; i < epochs; i++)
-                    for (int j = 0; j < inputs.Length; j++)
-                        TrainOnce(inputs[j], expectedOutputs[j]);
-            }
-
-            /// <summary>
-            /// Train the neural network once
-            /// </summary>
-            public override float TrainOnce(float[] input, float[] expectedOutput)
-            {
-                return TrainOnce(GetError(input, expectedOutput));
-            }
 
             /// <summary>
             /// Train the neural network once

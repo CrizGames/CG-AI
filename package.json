@@ -1,7 +1,7 @@
 {
   "name": "com.crizgames.cgai",
   "displayName": "CG AI",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Criz Games' AI Library for Unity",
   "author": "Criz Games",
   "unity": "2017.1",
@@ -17,14 +17,19 @@
   ],
   "samples": [
     {
+      "displayName": "XOR Neural Network Example",
+      "description": "A neural network solves the XOR problem",
+      "path": "Samples~/XOR Network"
+    },
+    {
       "displayName": "Q Learning Maze Example",
       "description": "A agent learns to walk through the maze",
       "path": "Samples~/Q Learning"
     },
     {
-      "displayName": "XOR Neural Network Example",
-      "description": "A neural network solves the XOR problem",
-      "path": "Samples~/XOR Network"
+      "displayName": "Deep Q Learning Example",
+      "description": "A agent learns to walk towards the goal",
+      "path": "Samples~/Deep Q Learning"
     }
   ]
 }

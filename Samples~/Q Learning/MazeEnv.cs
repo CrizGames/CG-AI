@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeEnv : QEnvironment
+public class MazeEnv : QEnvironment<int>
 {
     public int mazeWidth = 20;
     public int mazeHeight = 20;
