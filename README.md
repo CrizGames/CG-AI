@@ -23,7 +23,7 @@ net.Init();
 As you can see, the library has a number of activation functions.
 
 ### Custom Layer
-Currently, there is only the "Dense" layer, but you can add your own layer easily. Just inherit the "Layer" class.
+Currently, there is only the `Dense` layer, but you can add your own layer easily. Just inherit from the `Layer` class.
 ```c#
 public class CustomLayer : Layer
 {
