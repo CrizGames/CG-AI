@@ -117,10 +117,9 @@ namespace CGAI.QLearning
         public IEnumerator Train()
         {
             int wins = 1, fails = 1;
+            float episodeReward = 0;
             for (int episode = 0; episode < Episodes; episode++)
             {
-                float episodeReward = 0;
-
                 float[] currentState = env.Reset();
 
                 bool done = false;
@@ -156,10 +155,11 @@ namespace CGAI.QLearning
                 else
                     fails++;
 
-                if (episode % 10 == 0)
+                if (episode % 100 == 0)
                 {
-                    Debug.Log($"Episode {episode}  Exploration rate: {explorationRate}  Wins/Fails: {Math.Round((float)wins / fails, 2)}  Episode reward: {episodeReward}");
+                    Debug.Log($"Episode {episode}  Exploration rate: {explorationRate}  Wins/Fails: {Math.Round((float)wins / fails, 2)}  Mean episode reward: {episodeReward / 100f}");
                     wins = fails = 1;
+                    episodeReward = 0;
                 }
                 yield return null;
             }
