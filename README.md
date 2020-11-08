@@ -1,8 +1,7 @@
 # CG-AI
 This is Criz Games' Artificial Intelligence Library for Unity.
  
-It is not meant to be used by other people, but if you want to use it, feel free to do so!
-Also, it is not the fastest library, but fast enough for my purposes. It is probably better to use [Unity's ML-Agents](https://github.com/Unity-Technologies/ml-agents).
+It is not the fastest library, but fast enough for my purposes. It is probably better to use [Unity's ML-Agents](https://github.com/Unity-Technologies/ml-agents).
  
 ## Installation
 In the Unity package manager, click on the plus sign > Add package from Git URL..  
