@@ -38,7 +38,7 @@ public class CustomLayer : Layer
 }
 ```
 
-### Custom Activation function
+### Custom Activation Function
 Activation functions can also be added easily. Just create a function with `float[]` and `bool` as parameters and `float[]` as return type.
 ```c#
 public static float[] CustomActivationFunction(float[] layer, bool derivative = false)
