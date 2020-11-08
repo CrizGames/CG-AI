@@ -4,7 +4,6 @@
   "version": "0.4.0",
   "description": "Criz Games' AI Library for Unity",
   "author": "Criz Games",
-  "unity": "2017.1",
   "dependencies": {
     "com.malee.reorderablelist": "1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301"
@@ -31,5 +30,6 @@
       "description": "A agent learns to walk towards the goal",
       "path": "Samples~/Deep Q Learning"
     }
-  ]
+  ],
+  "type": "library"
 }
