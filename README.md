@@ -5,7 +5,9 @@ It is not the fastest library, but fast enough for my purposes. It is probably b
  
 ## Installation
 In the Unity package manager, click on the plus sign > Add package from Git URL..  
-`https://github.com/CrizGames/CG-AI.git`  
+1. `https://github.com/cfoulston/Unity-Reorderable-List.git` 
+2. `jillejr.newtonsoft.json-for-unity`  Follow the steps for installing this library [here](https://github.com/jilleJr/Newtonsoft.Json-for-Unity/wiki/Installation-via-UPM).
+3. `https://github.com/CrizGames/CG-AI.git`  
 
 ![screenshot](https://user-images.githubusercontent.com/38948134/81692046-1b0e9a80-945e-11ea-956f-607265b609df.png)  
 
