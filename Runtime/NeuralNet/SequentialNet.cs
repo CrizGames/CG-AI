@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Newtonsoft.Json;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace CGAI.NeuralNetwork
 {
@@ -109,7 +106,7 @@ namespace CGAI.NeuralNetwork
             return Layers[0].Activations.Length == inputLength;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Save model to path
         /// </summary>
         public void Save(string path)
@@ -157,7 +154,7 @@ namespace CGAI.NeuralNetwork
         public async Task<bool> LoadAsync(string path)
         {
             return await Task.Run(() => Load(path));
-        }
+        }*/
 
         /// <summary>
         /// Prints weights and biases of neural net to the console

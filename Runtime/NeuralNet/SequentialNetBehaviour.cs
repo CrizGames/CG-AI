@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Malee.List;
 
 namespace CGAI.NeuralNetwork
 {
@@ -54,17 +53,8 @@ namespace CGAI.NeuralNetwork
             }
         }
 
-        [System.Serializable]
-        private class DenseLayerArray : ReorderableArray<NetLayer> { }
-
-
-        // Variables
-
-        [SerializeField, Reorderable]
-        private DenseLayerArray layers = new DenseLayerArray();
-
-
-        // Methods
+        [SerializeField]
+        private List<NetLayer> layers = new();
 
         public SequentialNet GetSequentialNet()
         {
